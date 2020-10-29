@@ -1,0 +1,35 @@
+<div class="margen alert alert-info" *ngIf="juegos?.length == 0">
+    No hay ningun juego.
+    <button type="button" class="btn btn-primary float-right" routerLink="juegos/form">Añadir juego</button>
+</div>
+
+<div class="margen card border-primary mb-3" *ngIf="juegos?.length > 0">
+    <div class="card-header">
+        Juegos
+        <button type="button" class="btn btn-primary float-right" (click)="switchID()">{{ showID ? 'Ocultar' : 'Ver' }} ID</button>
+    </div>
+    <div class="card-body text-primary">
+        <table class="table table-striped">
+            <thead>
+                <th *ngIf="showID" scope="col">ID</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Fecha lanzamiento</th>
+                <th scope="col">Precio</th>
+                <th scope="col">PEGI</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Compañia</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let juego of juegos" [routerLink]="['/juegos/form', juego.idJuego]">
+                        <td class="align-middle" *ngIf="showID" scope="row">{{juego.idJuego}}</td>
+                        <td class="align-middle">{{juego.titulo}}</td>
+                        <td class="align-middle">{{juego.fechaLanzamiento  | date: "dd/MM/yyyy" }}</td>
+                        <td class="align-middle">{{juego.precio}}</td>
+                        <td class="align-middle">{{juego.pegi}}</td>
+                        <td class="align-middle">{{juego.categoria}}</td>
+                        <td><p *ngFor="let compania of juego.companies">{{ compania.nombre }}</p></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
