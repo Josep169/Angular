@@ -3,7 +3,7 @@
     <h1><span class="align-middle">{{ title }}</span></h1>
   </div>
   <div class="card-body">
-    <form>
+    <form #form="ngForm">
       <div class="form-group">
         <label for="Titulo">Titulo</label>
         <input type="text" class="form-control col-10" id="tituloInput" [(ngModel)]="juego.titulo" name="titulo" maxlength="255" required #titulo="ngModel">
@@ -15,7 +15,8 @@
       </div>
       <div class="form-group">
         <label for="Categoria">Categoria</label>
-        <select class="custom-select col-10" [(ngModel)]="juego.categoria" name="categoria" required #categoria="ngModel">
+        <br>
+        <select class="custom-select col-10" [(ngModel)]="juego.categoria" name="Categoria" required #categoria="ngModel">
           <option selected>Seleccionar una</option>
           <option value="SHOOTER">SHOOTER</option>
           <option value="MOBA">MOBA</option>
@@ -62,17 +63,17 @@
       </div>
       <div class="form-group row">
         <label for="companias" class="col-form-label col-sm-3">Compañías</label>
-        <select class="custom-select col-10" [(ngModel)]="juego.companies" name="company" [compareWith]="compareCompania" multiple required #company="ngModel">
+        <select class="custom-select col-10" [(ngModel)]="juego.companies" name="company" [compareWith]="compareCompania" multiple required #compania="ngModel">
           <option *ngFor="let compania of companias" [ngValue]="compania">{{ compania.nombre }}</option>
         </select>
-        <div class="alert alert-danger offset-2 col-10" *ngIf="company.invalid && (company.dirty || company.touched)">
-          <div *ngIf="company.errors.required">
+        <div class="alert alert-danger offset-2 col-10" *ngIf="compania.invalid && (compania.dirty || compania.touched)">
+          <div *ngIf="compania.errors.required">
             Debe rellenar el campo titulo
           </div>
         </div>
       </div>  
-        <button type="button" class="btn btn-primary" (click)="create()" *ngIf="!juego.idJuego" [disabled]="!form.form.valid">Crear</button>
-        <button type="button" class="btn btn-primary" (click)="update(juego)" *ngIf="juego.idJuego" [disabled]="!form.form.valid">Editar</button>
+        <button ctype="button" class="btn btn-primary float-right" (click)="createJuego()" *ngIf="!juego.idJuego" [disabled]="!form.form.valid">Crear</button>
+        <button type="button" class="btn btn-primary float-right" (click)="update(juego)" *ngIf="juego.idJuego" [disabled]="!form.form.valid">Editar</button>
         <button class="btn btn-secondary float-left" routerLink="juegos">Cancelar</button> 
     </form>
   </div>
