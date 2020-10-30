@@ -11,11 +11,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { CompaniasComponent } from './companias/companias.component';
 import { FormComponent as JuegosFormComponent } from './juegos/form.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { FormComponent as CompaniasFormComponent } from './companias/form.component'
 
 const ROUTES: Routes = [{path: '', redirectTo: '/juegos', pathMatch: 'full'},
                         {path: 'juegos', component: JuegosComponent},
                         {path: 'juegos/form', component: JuegosFormComponent},
                         {path: 'companias', component: CompaniasComponent},
+                        {path: 'login', component: LoginComponent},
                         {path: 'juegos/form/:id', component: JuegosFormComponent}];
 
 @NgModule({
@@ -27,6 +30,8 @@ const ROUTES: Routes = [{path: '', redirectTo: '/juegos', pathMatch: 'full'},
     AlertComponent,
     CompaniasComponent,
     JuegosFormComponent,
+    LoginComponent,
+    CompaniasFormComponent,
   ],
   imports: [
     BrowserModule,

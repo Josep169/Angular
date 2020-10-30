@@ -1,47 +1,79 @@
 <div class="margen card">
-    <div class="card-header">
-        <h1><span class="align-middle">{{ title }}</span></h1>
-    </div>
-    <div class="card-body">
-        <form>
-            <div class="form-group">
-              <label for="Titulo">Titulo</label>
-              <input name="Titulo" type="text" class="form-control" id="Titulo" [(ngModel)]="juego.titulo" required>
-            </div>
-            <div class="form-group">
-            <label for="Categoria">Categoria</label>
-            <select name="Categoria" class="custom-select" [(ngModel)]="juego.categoria">
-                <option selected>Seleccionar una</option>
-                <option value="SHOOTER">SHOOTER</option>
-                <option value="MOBA">MOBA</option>
-                <option value="RPG">RPG</option>
-                <option value="MMORPG">MMORPG</option>
-                <option value="ROGUELIKE">ROGUELIKE</option>
-                <option value="METROIDVANIA">METROIDVANIA</option>
-              </select>
-            </div>
-            <div class="form-group">
-                <label for="Date">Fecha</label>
-                <input name="Fecha" type="date" class="form-control" id="Fecha" [(ngModel)]="juego.fechaLanzamiento" required>
-            </div>
-            <div class="form-group">
-                <label for="Precio">Precio</label>
-                <input name="Precio" type="number" class="form-control" id="Precio" [(ngModel)]="juego.precio" required>
-            </div>
-            <div class="form-group">
-                <label for="Pegi">PEGI</label>
-                <input name="Pegi" type="number" class="form-control" id="Pegi" [(ngModel)]="juego.pegi" required>
-            </div>
-            <div class="form-group row">
-                <label for="companias" class="col-form-label col-sm-3">Compañías</label>
-                <select name="company" class="form-control custom-select" [(ngModel)]="juego.companies" [compareWith]="compareCompania" multiple>
-                    <option *ngFor="let compania of companias" [ngValue]="compania">{{ compania.nombre }}</option>
-                </select>
-            </div>
-            <button *ngIf="juego.idJuego" class="btn btn-primary float-right">Editar</button>
-            <button *ngIf="!juego.idJuego" class="btn btn-primary float-right">Crear</button>
-            <button class="btn btn-secondary float-left" routerLink="juegos">Cancelar</button>
-          </form>
-          
-    </div>
+  <div class="card-header">
+    <h1><span class="align-middle">{{ title }}</span></h1>
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="form-group">
+        <label for="Titulo">Titulo</label>
+        <input type="text" class="form-control col-10" id="tituloInput" [(ngModel)]="juego.titulo" name="titulo" maxlength="255" required #titulo="ngModel">
+        <div class="alert alert-danger offset-2 col-10" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+          <div *ngIf="titulo.errors.required">
+            Debe rellenar el campo titulo
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Categoria">Categoria</label>
+        <select class="custom-select col-10" [(ngModel)]="juego.categoria" name="categoria" required #categoria="ngModel">
+          <option selected>Seleccionar una</option>
+          <option value="SHOOTER">SHOOTER</option>
+          <option value="MOBA">MOBA</option>
+          <option value="RPG">RPG</option>
+          <option value="MMORPG">MMORPG</option>
+          <option value="ROGUELIKE">ROGUELIKE</option>
+          <option value="METROIDVANIA">METROIDVANIA</option>
+        </select>
+        <div class="alert alert-danger offset-2 col-10" *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)">
+          <div *ngIf="categoria.errors.required">
+            Debe rellenar el campo titulo
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Date">Fecha</label>
+        <input type="date" class="form-control col-10" id="fechaInput" [(ngModel)]="juego.fechaLanzamiento" name="fechaLanzamiento" required #fecha="ngModel">
+        <div class="alert alert-danger offset-2 col-10" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+          <div *ngIf="fecha.errors.required">
+            Debe rellenar el campo fecha
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Precio">Precio</label>
+        <input type="number" class="form-control col-10" id="precioInput" [(ngModel)]="juego.precio" name="precio" required #precio="ngModel">
+        <div class="alert alert-danger offset-2 col-10" *ngIf="precio.invalid && (precio.dirty || precio.touched)">
+          <div *ngIf="precio.errors.required">
+            Debe rellenar el campo precio
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Pegi">PEGI</label>
+        <input type="number" class="form-control col-10" id="pegiInput" [(ngModel)]="juego.pegi" name="pegi" max="18" pattern="[0-9]*" required #pegi="ngModel">
+        <div class="alert alert-danger offset-2 col-10" *ngIf="pegi.invalid && (pegi.dirty || pegi.touched)">
+          <div *ngIf="pegi.errors.required">
+            Debe rellenar el campo PEGI
+          </div>
+          <div *ngIf="pegi.errors.pattern">
+            PEGI debe ser un número positivo
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="companias" class="col-form-label col-sm-3">Compañías</label>
+        <select class="custom-select col-10" [(ngModel)]="juego.companies" name="company" [compareWith]="compareCompania" multiple required #company="ngModel">
+          <option *ngFor="let compania of companias" [ngValue]="compania">{{ compania.nombre }}</option>
+        </select>
+        <div class="alert alert-danger offset-2 col-10" *ngIf="company.invalid && (company.dirty || company.touched)">
+          <div *ngIf="company.errors.required">
+            Debe rellenar el campo titulo
+          </div>
+        </div>
+      </div>  
+        <button type="button" class="btn btn-primary" (click)="create()" *ngIf="!juego.idJuego" [disabled]="!form.form.valid">Crear</button>
+        <button type="button" class="btn btn-primary" (click)="update(juego)" *ngIf="juego.idJuego" [disabled]="!form.form.valid">Editar</button>
+        <button class="btn btn-secondary float-left" routerLink="juegos">Cancelar</button> 
+    </form>
+  </div>
 </div>

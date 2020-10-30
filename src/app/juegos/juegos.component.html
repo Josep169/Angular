@@ -18,16 +18,18 @@
                 <th scope="col">PEGI</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Compañia</th>
+                <th scope="col">Acciones</th>
             </thead>
             <tbody>
-                <tr *ngFor="let juego of juegos" [routerLink]="['/juegos/form', juego.idJuego]">
-                        <td class="align-middle" *ngIf="showID" scope="row">{{juego.idJuego}}</td>
-                        <td class="align-middle">{{juego.titulo}}</td>
-                        <td class="align-middle">{{juego.fechaLanzamiento  | date: "dd/MM/yyyy" }}</td>
-                        <td class="align-middle">{{juego.precio}}</td>
-                        <td class="align-middle">{{juego.pegi}}</td>
-                        <td class="align-middle">{{juego.categoria}}</td>
-                        <td><p *ngFor="let compania of juego.companies">{{ compania.nombre }}</p></td>
+                <tr *ngFor="let juego of juegos">
+                        <td class="align-middle" *ngIf="showID" scope="row" [routerLink]="['/juegos/form', juego.idJuego]">{{juego.idJuego}}</td>
+                        <td class="align-middle" [routerLink]="['/juegos/form', juego.idJuego]">{{juego.titulo}}</td>
+                        <td class="align-middle" [routerLink]="['/juegos/form', juego.idJuego]">{{juego.fechaLanzamiento  | date: "dd/MM/yyyy" }}</td>
+                        <td class="align-middle" [routerLink]="['/juegos/form', juego.idJuego]">{{juego.precio}}</td>
+                        <td class="align-middle" [routerLink]="['/juegos/form', juego.idJuego]">{{juego.pegi}}</td>
+                        <td class="align-middle" [routerLink]="['/juegos/form', juego.idJuego]">{{juego.categoria}}</td>
+                        <td [routerLink]="['/juegos/form', juego.idJuego]"><p *ngFor="let compania of juego.companies">{{ compania.nombre }}</p></td>
+                        <td class="align-middle"><button type="button" class="btn btn-primary float-right" (click)="deleteJuego(juego)">Eliminar</button></td>
                     </tr>
             </tbody>
         </table>

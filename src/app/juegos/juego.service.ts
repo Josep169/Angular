@@ -28,8 +28,14 @@ export class JuegoService {
     return this.http.post<Juego>(this.urlServer + 'juegos', juego, {headers: this.httpHeaders}).pipe(
       catchError(e => {
         console.error(`create error: "${e.message}"`);
-        this.alertService.error(`Error al crear el juego: "${e.message}"`);
-        return throwError(e);
+        if(e.status == 400){
+          e.error.errorMessage.replace("["," ").replace("]"," ").split(", ").reverse().forEach(errorM => {
+            this.alertService.error(`${errorM}`,{autoClose:false,keepAfterRouteChange:false});
+          });
+        }else{
+          this.alertService.error(`Error al crear el juego: "${e.message}"`,{autoClose:false,keepAfterRouteChange:false});
+          return throwError(e)
+        }
       })
     );
   }
@@ -46,9 +52,24 @@ export class JuegoService {
     return this.http.put<Juego>(`${this.urlServer}juegos/${juego.idJuego}`, juego, {headers: this.httpHeaders}).pipe(
       catchError(e => {
         console.error(`update error: "${e.message}"`);
-        this.alertService.error(`Error al actualizar el juego: "${e.message}"`);
-        return throwError(e);
+        if(e.status == 400){
+          e.error.errorMessage.replace("["," ").replace("]"," ").split(", ").reverse().forEach(errorM => {
+            this.alertService.error(`${errorM}`,{autoClose:false,keepAfterRouteChange:false});
+          });
+        }else{
+          this.alertService.error(`Error al editar el juego: "${e.message}"`,{autoClose:false,keepAfterRouteChange:false});
+          return throwError(e)
+        }
       })
     );
-  }
+    }
+    deleteJuego(id: number): Observable<any> {
+      return this.http.delete(`${this.urlServer}juegos/${id}`).pipe(
+        catchError(error => {
+          console.error(`deleteJuego error: "${error.message}"`);
+          this.alertService.error(`Error al eliminar el juego: "${error.message}"`, {autoClose:true, KeepAfterRouteChange: false});
+          return throwError(error);
+        })
+      );
+    }
 }

@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   })
 
 export class HeaderComponent {
-  person1: any = {name: 'Josep', lastname: 'Borras Regolf'};
+
+  
 }

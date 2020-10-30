@@ -1,0 +1,52 @@
+<div class="margen card">
+    <div class="card-header">
+        <h1><span class="align-middle">{{ title }}</span></h1>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+              <label for="Titulo">Titulo</label>
+              <input name="Titulo" type="text" class="form-control" [(ngModel)]="juego.titulo" placeholder="Título" maxlength="255" required #titulo="ngModel">
+              <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+                <div *ngIf="titulo.errors.required">
+                  Debe rellenar el título del Juego
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+            <label for="Categoria">Categoria</label>
+            <select name="Categoria" class="custom-select" [(ngModel)]="juego.categoria">
+                <option selected>Seleccionar una</option>
+                <option value="SHOOTER">SHOOTER</option>
+                <option value="MOBA">MOBA</option>
+                <option value="RPG">RPG</option>
+                <option value="MMORPG">MMORPG</option>
+                <option value="ROGUELIKE">ROGUELIKE</option>
+                <option value="METROIDVANIA">METROIDVANIA</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="Date">Fecha</label>
+                <input name="Fecha" type="date" class="form-control" id="Fecha" [(ngModel)]="juego.fechaLanzamiento" required>
+            </div>
+            <div class="form-group">
+                <label for="Precio">Precio</label>
+                <input name="Precio" type="number" class="form-control" id="Precio" [(ngModel)]="juego.precio" required>
+            </div>
+            <div class="form-group">
+                <label for="Pegi">PEGI</label>
+                <input name="Pegi" type="number" class="form-control" id="Pegi" [(ngModel)]="juego.pegi" required>
+            </div>
+            <div class="form-group row">
+                <label for="companias" class="col-form-label col-sm-3">Compañías</label>
+                <select name="company" class="form-control custom-select" [(ngModel)]="juego.companies" [compareWith]="compareCompania" multiple>
+                    <option *ngFor="let compania of companias" [ngValue]="compania">{{ compania.nombre }}</option>
+                </select>
+            </div>
+            <button *ngIf="juego.idJuego" class="btn btn-primary float-right">Editar</button>
+            <button *ngIf="!juego.idJuego" class="btn btn-primary float-right">Crear</button>
+            <button class="btn btn-secondary float-left" routerLink="juegos">Cancelar</button>
+          </form>
+          
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Juego } from './juego';
-import { JuegoService } from './juego.service';
+import { Juego } from '../juegos/juego';
+import { JuegoService } from '../juegos/juego.service';
 import { ActivatedRoute, Router } from '@angular/router'
 import { Companias } from '../companias/companias'
 import { CompaniaService } from '../companias/compania.service'

@@ -1,0 +1,28 @@
+<div class="margen card">
+    <div class="card-header">
+        <h1><span class="align-middle">Iniciar Sesión</span></h1>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <label for="Usuario">Usuario</label>
+                <input type="text" id="Usuario" class="form-control" [(ngModel)]="credentials.usuario" name="Usuario" maxlength="255" required #usuario="ngModel" autofocus>
+                <div class="alert alert-danger col-12" *ngIf="usuario.invalid && (usuario.dirty || usuario.touched)">
+                  <div *ngIf="usuario.errors.required">
+                    Debe rellenar el campo usuario
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Contraseña">Contraseña</label>
+                <input type="password" id="Pass" class="form-control" [(ngModel)]="credentials.pass" name="titulo" maxlength="255" required #pass="ngModel">
+                <div class="alert alert-danger col-12" *ngIf="pass.invalid && (pass.dirty || pass.touched)">
+                  <div *ngIf="pass.errors.required">
+                    Debe rellenar el campo contraseña
+                  </div>
+                </div>
+            </div>
+            <button class="btn btn-primary float-right" (click)="login()">Iniciar Sesión</button>
+        </form>
+    </div>
+</div>
